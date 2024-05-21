@@ -1,13 +1,12 @@
 import { Router } from "express";
+import { createProduct } from "./handlers/product";
 
 const router = Router();
 //Routing
 router.get("/", (req, res) => {
   res.send("Hola Mundo desde get");
 });
-router.post("/", (req, res) => {
-  res.send("Hola Mundo desde post");
-});
+router.post("/", createProduct);
 router.delete("/", (req, res) => {
   res.send("Hola Mundo delete");
 });
