@@ -1,8 +1,10 @@
 import { Router } from "express";
 import {
   createProduct,
+  deleteProduct,
   getProductById,
   getProducts,
+  updateAvailability,
   updateProduct,
 } from "./handlers/product";
 import { body, param } from "express-validator";
@@ -54,8 +56,17 @@ router.put(
   handleInputErrors,
   updateProduct
 );
-router.delete("/", (req, res) => {
-  res.send("Hola Mundo delete");
-});
+router.patch(
+  "/:id",
+  param("id").isInt().withMessage("ID no Válido"),
+  handleInputErrors,
+  updateAvailability
+);
+router.delete(
+  "/:id",
+  param("id").isInt().withMessage("ID no Válido"),
+  handleInputErrors,
+  deleteProduct
+);
 
 export default router;
