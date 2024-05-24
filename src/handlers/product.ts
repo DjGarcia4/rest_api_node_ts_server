@@ -18,12 +18,8 @@ export const getProductById = async (req: Request, res: Response) => {
   res.json({ data: product });
 };
 export const createProduct = async (req: Request, res: Response) => {
-  try {
-    const product = await Product.create(req.body);
-    res.status(201).json({ data: product });
-  } catch (error) {
-    console.log(error);
-  }
+  const product = await Product.create(req.body);
+  res.status(201).json({ data: product });
 };
 export const updateProduct = async (req: Request, res: Response) => {
   const { id } = req.params;

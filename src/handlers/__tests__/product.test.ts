@@ -135,6 +135,31 @@ describe("PUT  /api/products/:id", () => {
   });
 });
 
+describe("PATCH  /api/products/:id", () => {
+  it("Should check a valid ID in the URL", async () => {
+    const res = await request(server).patch(`/api/products/not-valid-url`);
+    expect(res.status).toBe(400);
+    expect(res.body).toHaveProperty("error");
+    expect(res.body.error).toHaveLength(1);
+    expect(res.body.error[0].msg).toBe("ID no Válido");
+  });
+  it("Should return a 404 response for a non-existent product", async () => {
+    const prudctId = 100;
+    const res = await request(server).patch(`/api/products/${prudctId}`);
+
+    expect(res.status).toBe(404);
+    expect(res.body).toHaveProperty("error");
+
+    expect(res.body.error).toBe("Producto no Encontrado");
+  });
+  it("Should update the product availability", async () => {
+    const prudctId = 1;
+    const res = await request(server).patch(`/api/products/${prudctId}`);
+    expect(res.status).toBe(200);
+    expect(res.body).toHaveProperty("data");
+  });
+});
+
 describe("DELETE  /api/products/:id", () => {
   it("Should check a valid ID in the URL", async () => {
     const res = await request(server).delete(`/api/products/not-valid-url`);

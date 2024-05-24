@@ -11,8 +11,52 @@ import { body, param } from "express-validator";
 import { handleInputErrors } from "./middleware";
 
 const router = Router();
-//Routing
+/**
+ *@swagger
+ *components:
+ *     schemas:
+ *        Product:
+ *            Type: object
+ *            properties:
+ *                id:
+ *                    type: integer
+ *                    description: The product ID
+ *                    example: 1
+ *                name:
+ *                    type: string
+ *                    description: The product name
+ *                    example: Monitor curvo de 49 Pulgadas
+ *                price:
+ *                    type: number
+ *                    description: The product price
+ *                    example: 300
+ *                availability:
+ *                    type: boolean
+ *                    description: The product availability
+ *                    example: true
+ */
+
+/**
+ *@swagger
+ * /api/products:
+ *     get:
+ *      summary: Get a list of products
+ *      tags:
+ *        - Products
+ *      description: Return a list of products
+ *      responses:
+ *        200:
+ *          description: Successfull response
+ *          content:
+ *            application/json:
+ *              schema:
+ *                type: array
+ *                items:
+ *                  $ref: '#/components/schemas/Product'
+ */
+
 router.get("/", getProducts);
+//Routing
 router.get(
   "/:id",
   param("id").isInt().withMessage("ID no Válido"),
